@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './question.dart';
+import './answer.dart';
 
 // void main() {
 //   runApp(MyClass());
@@ -26,7 +27,28 @@ class _MyClassState extends State<MyClass> {
 
   @override
   Widget build(BuildContext context) {
-    var questions = ['Ban sinh ngay nao', 'Ban thich con  gi'];
+    var questions = [
+      {
+        'questionText': 'Hom nay la thu may',
+        'answers': ['thu hai', 'thu ba', 'thu tu']
+      },
+      {
+        'questionText': 'Con meo ban ten gi',
+        'answers': ['Thu Thu', 'Meow', 'Ket']
+      },
+      {
+        'questionText': 'COn vat ban yeu thich',
+        'answers': ['Cho', 'Meo', 'Lon']
+      },
+      {
+        'questionText': 'Nha ban o dau',
+        'answers': ['Bac Giang', 'Ha Noi', 'Ha Giang']
+      },
+      {
+        'questionText': 'Ca khong an muoi...',
+        'answers': ['Ca uon', 'Ca thoi', 'Ca hong']
+      },
+    ];
     return MaterialApp(
         home: Scaffold(
       appBar: AppBar(
@@ -35,22 +57,13 @@ class _MyClassState extends State<MyClass> {
       body: Column(
         //chua danh sach cua cac widget
         children: [
-          Question(questions[_questionIndex]),
-          RaisedButton(
-            onPressed: _answerQuestions,
-            child: Text('answer 1'),
-          ),
-          RaisedButton(
-            onPressed: () {
-              print('ok 2');
-            },
-            child: Text('answer 2'),
-            textColor: Colors.white,
-          ),
-          RaisedButton(
-            onPressed: () => print('hihi ok 3'),
-            child: Text('answer 3'),
-          ),
+          Question(questions[_questionIndex]['questionText']),
+
+          // 3 dau cham la lay gia tri cua list ra khoi danh sach, them chung vao mot sorrounding list
+          ...(questions[_questionIndex]['answers'] as List<String>)
+              .map((answer) {
+            return Answer(_answerQuestions, answer);
+          }).toList()
         ],
       ),
     ));
